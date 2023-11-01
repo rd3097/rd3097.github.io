@@ -1,0 +1,56 @@
+---
+title: "My personal website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+
+## Home
+
+**Welcome to my personal website!**
+
+## About
+
+**Name:** Ruoying Deng
+
+**Email:** rd3097@cumc.columbia.edu 
+
+I'm currently a first MS Biostatistics student concentracted in the track of Public Health Data Science in Columbia Univeristy.
+
+## Education
+
+### Master of Science in Biostatistics (Public Health Data Science)
+- **Columbia University**, New York, NY (Expected May 2025)
+  - **Relevant Coursework:** Biostatistics Method, Principles of Epidemiology
+  - **In-process Coursework:** Data Science (R language)
+
+### Bachelor of Science in Physical Sciences (Mathematics), Minor in Economics
+- **University of California - Irvine**, Irvine, CA (Aug. 2018 – June 2022)
+  - **GPA:** 3.63/4.0
+  - **Relevant Coursework:** Multivariable Calculus, Probability and Statistics, Numerical Analysis, Intro to Programming, etc
+
+
+## Professional Experience
+
+### Application Analyst I
+- **Hoag Memorial Hospital Presbyterian**, Irvine, CA (Aug. 2022 – Apr. 2023)
+  - Evaluated and resolved multiple data extraction requests, technical support tickets, service requests, and customer requests for system changes. Introduced system changes to patients and other staff.
+  - Optimized system configuration, function, and access by maintaining and updating the database of resolute professional billing for 10+ business teams. Assisted with the design and testing of system reports by working with patients.
+
+### Marketing Research Intern
+- **Changjiang Securities**, Hubei, China (May 2021 – July 2021)
+  - Launched surveys to 100+ customers and collected their opinions on the company’s websites.
+  - Conducted an exploratory analysis on the survey results across different demographics using R. Visualized the results using Tableau, presented the outcomes to the marketing department, and improved the user experience by updating the UI design with the IT team.
+
+
+## Contact
+
+Feel free to contact me using the provided links in the navigation.
+
+- [GitHub](https://github.com/rd3097) 
+
+- [LinkedIn](https://www.linkedin.com/in/ruoying-deng-80b100199/)
+
