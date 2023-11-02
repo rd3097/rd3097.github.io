@@ -1,0 +1,57 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(p8105.datasets)
+data("instacart")
+```
+
+---
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+instacart1 <- instacart %>%
+  filter(department %in% c('canned goods', 'beverages')) %>%
+  group_by(aisle_id,order_hour_of_day,aisle) %>%
+  count(product_name, sort = TRUE)
+# plotly scatterplot
+instacart1 |>
+  mutate(text_label = str_c("Name", product_name, "\nAisleID ", aisle_id)) |> 
+  plot_ly(
+    x = ~ order_hour_of_day, y = ~n, type = "scatter", mode = "markers",
+    color = ~ aisle_id, text = ~text_label, alpha = 0.5)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+#plotly boxplot
+instacart1 |> 
+  plot_ly(y = ~ n, x = ~ order_hour_of_day, color = ~ aisle, type = "box", colors = "viridis")
+```
+
+### Chart C
+
+```{r}
+scatter_ggplot = 
+  instacart1 |>
+  ggplot(aes(x = order_hour_of_day, y = n, color = aisle)) +
+  geom_point(alpha = 0.25) +
+  coord_cartesian()
+
+ggplotly(scatter_ggplot)
+```

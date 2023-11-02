@@ -1,0 +1,25 @@
+---
+title: "P8105_HW4_rd3097"
+author: "RUOYING DENG"
+date: "2023-11-01"
+output: html_document
+---
+Necessary Library
+```{r, message= False}
+library(p8105.datasets)
+library(tidyverse)
+
+library(plotly)
+```
+
+```{r}
+data(instacart)
+
+instacart%>%
+  filter(aisle %in% c('fresh vegetables', 'fresh herbs', 'fresh fruits')) %>%
+  group_by(aisle) %>%
+  count(product_name, sort = TRUE) %>%
+  top_n(3)
+  
+```
+
