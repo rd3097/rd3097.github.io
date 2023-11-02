@@ -2,24 +2,71 @@
 title: "P8105_HW4_rd3097"
 author: "RUOYING DENG"
 date: "2023-11-01"
-output: html_document
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
-Necessary Library
-```{r, message= False}
+
+```{r setup, include=FALSE}
+library(flexdashboard)
 library(p8105.datasets)
 library(tidyverse)
-
 library(plotly)
+data("rest_inspec")
 ```
 
 ```{r}
-data(instacart)
-
-instacart%>%
-  filter(aisle %in% c('fresh vegetables', 'fresh herbs', 'fresh fruits')) %>%
-  group_by(aisle) %>%
-  count(product_name, sort = TRUE) %>%
-  top_n(3)
+filter_cusines <- rest_inspec %>%
+  filter(cuisine_description %in% c('Korean'),
+         boro %in% c('MANHATTAN'),
+          !is.na(score)) %>%
+  select(
+    building, dba, score, zipcode, violation_code)%>%
+  arrange(desc(building))
   
 ```
+
+This is a dashboard
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+# plotly scatterplot
+filter_cusines |>
+  distinct(dba,.keep_all = TRUE)|>
+  mutate(text_label = str_c("Name", dba, "\nScore ", score)) |> 
+  plot_ly(
+    x = ~ dba, y = ~ score, type = "scatter", mode = "markers",
+    color = ~ violation_code, text = ~text_label, alpha = 0.5)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+#plotly boxplot
+filter_cusines |> 
+  group_by(building)|>
+  plot_ly(y = ~ score, x = ~ dba, color = ~ building, type = "box", colors = "viridis")
+```
+
+### Chart C
+
+```{r}
+scatter_ggplot = 
+  filter_cusines |>
+  ggplot(aes(x = zipcode, y = score, color = violation_code)) +
+  geom_point(alpha = 0.25) +
+  coord_cartesian()
+
+ggplotly(scatter_ggplot)
+```
+
 
