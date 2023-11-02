@@ -27,7 +27,7 @@ filter_cusines <- rest_inspec %>%
   
 ```
 
-This is a dashboard
+This is my solution to problem 2
 
 Column {data-width=650}
 -----------------------------------------------------------------------
@@ -68,5 +68,6 @@ scatter_ggplot =
 
 ggplotly(scatter_ggplot)
 ```
+
 
 
