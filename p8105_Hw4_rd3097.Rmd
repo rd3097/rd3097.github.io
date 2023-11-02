@@ -8,7 +8,7 @@ output:
     vertical_layout: fill
 ---
 
-```{r setup, include=FALSE}
+```{r setup_chunk1, include=FALSE}
 library(flexdashboard)
 library(p8105.datasets)
 library(tidyverse)
