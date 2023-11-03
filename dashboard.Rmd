@@ -18,51 +18,52 @@ data("rest_inspec")
 
 ```{r}
 filter_cusines <- rest_inspec %>%
-  filter(cuisine_description %in% c('Korean'),
-         boro %in% c('MANHATTAN'),
-          !is.na(score)) %>%
+  filter(boro %in% c('STATEN ISLAND'),
+          !is.na(score),
+         format(inspection_date, "%Y") == "2017",
+         critical_flag == "Critical")%>%
+  mutate(cuisine_description = ifelse(cuisine_description == "Latin (Cuban, Dominican, Puerto Rican, South & Central American)", "Latino", cuisine_description))%>%
   select(
-    building, dba, score, zipcode, violation_code)%>%
-  arrange(desc(building))
+   cuisine_description, inspection_date, score, violation_code, action)
   
 ```
 
 This is my solution to problem 2
 
-Column {data-width=650}
+Column {data-width=450}
 -----------------------------------------------------------------------
 
-### Chart A
+### Boxplot of cuisine's scores
+
+```{r}
+#plotly boxplot
+filter_cusines|>
+  group_by(cuisine_description)|>
+  filter(n()>30)|>
+  ungroup()|>
+
+  plot_ly(y = ~ score, x = ~ cuisine_description, color = ~ cuisine_description, type = "box", colors = "viridis")
+```
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Scatterplot of Score of cusine restaurant in Staten Island in 2017
 
 ```{r}
 
 # plotly scatterplot
 filter_cusines |>
-  distinct(dba,.keep_all = TRUE)|>
-  mutate(text_label = str_c("Name", dba, "\nScore ", score)) |> 
+  mutate(text_label = str_c("Cuisine", cuisine_description, "\nScore ", score)) |> 
   plot_ly(
-    x = ~ dba, y = ~ score, type = "scatter", mode = "markers",
+    x = ~ cuisine_description, y = ~ score, type = "scatter", mode = "markers",
     color = ~ violation_code, text = ~text_label, alpha = 0.5)
 ```
-
-Column {data-width=350}
------------------------------------------------------------------------
-
-### Chart B
-
-```{r}
-#plotly boxplot
-filter_cusines |> 
-  group_by(building)|>
-  plot_ly(y = ~ score, x = ~ dba, color = ~ building, type = "box", colors = "viridis")
-```
-
-### Chart C
+### ggplot of violation code of scores in 2017
 
 ```{r}
 scatter_ggplot = 
   filter_cusines |>
-  ggplot(aes(x = zipcode, y = score, color = violation_code)) +
+  ggplot(aes(x = inspection_date, y = score, color = violation_code)) +
   geom_point(alpha = 0.25) +
   coord_cartesian()
 
