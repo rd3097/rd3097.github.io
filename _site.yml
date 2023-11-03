@@ -5,7 +5,7 @@ navbar:
   right:
     - text: "Experience"
       href: Experience.html
-    - text: "dashboard.Rmd"
+    - text: "Dashboard"
       href: dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<rd3097@cumc.columbia.edu>
