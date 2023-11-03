@@ -13,4 +13,4 @@ navbar:
       href: https://github.com/rd3097/
 output:
   html_document:
-    theme: cerulean
+    theme: cosmo
