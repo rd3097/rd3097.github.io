@@ -1,36 +1,48 @@
 ---
-title: "Untitled"
+title: "dashboard"
+author: "RUOYING DENG"
+date: "2023-11-01"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
 ---
 
-```{r setup, include=FALSE}
+```{r setup_chunk1, include=FALSE}
 library(flexdashboard)
+library(p8105.datasets)
 library(tidyverse)
 library(plotly)
-library(p8105.datasets)
-data("instacart")
+data("rest_inspec")
 ```
 
----
+```{r}
+filter_cusines <- rest_inspec %>%
+  filter(cuisine_description %in% c('Korean'),
+         boro %in% c('MANHATTAN'),
+          !is.na(score)) %>%
+  select(
+    building, dba, score, zipcode, violation_code)%>%
+  arrange(desc(building))
+  
+```
+
+This is my solution to problem 2
+
 Column {data-width=650}
 -----------------------------------------------------------------------
 
 ### Chart A
 
 ```{r}
-instacart1 <- instacart %>%
-  filter(department %in% c('canned goods', 'beverages')) %>%
-  group_by(aisle_id,order_hour_of_day,aisle) %>%
-  count(product_name, sort = TRUE)
+
 # plotly scatterplot
-instacart1 |>
-  mutate(text_label = str_c("Name", product_name, "\nAisleID ", aisle_id)) |> 
+filter_cusines |>
+  distinct(dba,.keep_all = TRUE)|>
+  mutate(text_label = str_c("Name", dba, "\nScore ", score)) |> 
   plot_ly(
-    x = ~ order_hour_of_day, y = ~n, type = "scatter", mode = "markers",
-    color = ~ aisle_id, text = ~text_label, alpha = 0.5)
+    x = ~ dba, y = ~ score, type = "scatter", mode = "markers",
+    color = ~ violation_code, text = ~text_label, alpha = 0.5)
 ```
 
 Column {data-width=350}
@@ -40,18 +52,22 @@ Column {data-width=350}
 
 ```{r}
 #plotly boxplot
-instacart1 |> 
-  plot_ly(y = ~ n, x = ~ order_hour_of_day, color = ~ aisle, type = "box", colors = "viridis")
+filter_cusines |> 
+  group_by(building)|>
+  plot_ly(y = ~ score, x = ~ dba, color = ~ building, type = "box", colors = "viridis")
 ```
 
 ### Chart C
 
 ```{r}
 scatter_ggplot = 
-  instacart1 |>
-  ggplot(aes(x = order_hour_of_day, y = n, color = aisle)) +
+  filter_cusines |>
+  ggplot(aes(x = zipcode, y = score, color = violation_code)) +
   geom_point(alpha = 0.25) +
   coord_cartesian()
 
 ggplotly(scatter_ggplot)
 ```
+
+
+

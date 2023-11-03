@@ -1,23 +1,10 @@
 ---
-title: "My personal website"
-output: 
+title: "Experience"
+output:
   html_document:
     toc: true
-    toc_float: true
+    toc_floact: true
 ---
-
-
-## Home
-
-**Welcome to my personal website!**
-
-## About
-
-**Name:** Ruoying Deng
-
-**Email:** rd3097@cumc.columbia.edu 
-
-I'm currently a first MS Biostatistics student concentracted in the track of Public Health Data Science in Columbia Univeristy.
 
 ## Education
 
@@ -44,12 +31,7 @@ I'm currently a first MS Biostatistics student concentracted in the track of Pub
   - Launched surveys to 100+ customers and collected their opinions on the company’s websites.
   - Conducted an exploratory analysis on the survey results across different demographics using R. Visualized the results using Tableau, presented the outcomes to the marketing department, and improved the user experience by updating the UI design with the IT team.
 
-
 ## Contact
 
 Feel free to contact me using the provided links in the navigation.
-
-- [GitHub](https://github.com/rd3097) 
-
 - [LinkedIn](https://www.linkedin.com/in/ruoying-deng-80b100199/)
-
